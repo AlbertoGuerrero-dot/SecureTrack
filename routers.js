@@ -6,12 +6,16 @@ const passport = require('passport');
 const {Strategy} = require('passport-local');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const env = require('dotenv');
+const axios = require('axios');
 
+env.config()
 const saltRounds = 10; 
+const API_URL = "http://localhost:4000";
 
 router.use(
     session({
-      secret: "TOPSECRETWORD",
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,
     })
@@ -31,9 +35,9 @@ router.get("/login", (req, res) => {
     res.send("aquí debería ir un login");
 });
 
-router.get("/paquetes", (req, res) => {
+router.get("/home", (req, res) => {
     if (req.isAuthenticated()) {
-        res.send("Agregar un nuevo paquete");
+        res.send("Pagina inicio");
       } else {
         res.redirect("/login");
       }
@@ -48,10 +52,33 @@ router.get("/logout", (req, res) => {
     });
   });
 
+router.get("/paquete", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send("Agregar nuevo paquete");
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.get("/buscar", (req, res) => {
+  res.send('Aquí debería hacer algo');
+})
+
+router.post("/buscar", async(req, res) => {
+  try {
+    const qr = req.body.qr;
+    const response = await axios.post(`${API_URL}/search`, { qr });
+    res.send(response.data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching data" });
+  }
+});
+
   router.post(
     "/login",
     passport.authenticate("local", {
-      successRedirect: "/paquetes",
+      successRedirect: "/home",
       failureRedirect: "/login",
     })
   );
@@ -79,7 +106,7 @@ router.get("/logout", (req, res) => {
             const user = result.rows[0];
             req.login(user, (err) => {
               console.log("success");
-              res.redirect("/paquetes");
+              res.redirect("/home");
             });
           }
         });
