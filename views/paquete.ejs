@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>AGREGAR UN NUEVO PAQUETE</h1>
+    <form action="/paquete" method="POST">
+      <h2>Remitente</h2>
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre_remitente">
+        </div>
+        <div class="form-group">
+          <label for="direccion">Dirección</label>
+          <input type="text" class="form-control" name="direccion_remitente">
+        </div>
+        <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <input type="text" class="form-control" name="telefono_remitente">
+          </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input type="text" class="form-control" name="email_remitente">
+          </div>
+      <h2>Destinatario</h2>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre_destinatario">
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="text" class="form-control" name="direccion_destinatario">
+          </div>
+          <div class="form-group">
+              <label for="telefono">Telefono</label>
+              <input type="text" class="form-control" name="telefono_destinatario">
+            </div>
+          <div class="form-group">
+              <label for="email">email</label>
+              <input type="text" class="form-control" name="email_destinatario">
+            </div>
+            <button type="submit" class="btn btn-dark">Agregar</button>
+        </form>
+</body>
+</html>

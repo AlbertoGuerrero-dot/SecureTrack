@@ -32,12 +32,12 @@ router.get('/', (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    res.send("aquí debería ir un login");
+    res.render("login.ejs");
 });
 
 router.get("/home", (req, res) => {
     if (req.isAuthenticated()) {
-        res.send("Pagina inicio");
+        res.render("home.ejs");
       } else {
         res.redirect("/login");
       }
@@ -54,15 +54,35 @@ router.get("/logout", (req, res) => {
 
 router.get("/paquete", (req, res) => {
   if (req.isAuthenticated()) {
-    res.send("Agregar nuevo paquete");
+    res.render("paquete.ejs");
   } else {
     res.redirect("/login");
   }
 });
 
 router.get("/buscar", (req, res) => {
-  res.send('Aquí debería hacer algo');
+  res.render('buscar.ejs');
 })
+
+
+// RUTAS POST
+
+router.post("/paquete", async (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      const data = req.body;
+      console.log(data);
+      const response = await axios.post(`${API_URL}/shippingInfo`, data);
+      console.log(response.data);
+      res.redirect("/home");
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error sending data" });
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
 
 router.post("/buscar", async(req, res) => {
   try {
