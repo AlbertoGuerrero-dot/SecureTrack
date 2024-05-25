@@ -1,0 +1,14 @@
+//////// FRONT END ////////
+Agregar a las vistas las siguientes pantallas (views): 
+- log in [escriorio, pwa]
+-nuevo paquete (formulario destinatario y remitente) [escriorio responsivo]
+-estado/rastreo (estado actual del paquete e información) [escriorio responsivo]
+- vista qr (escanea el qr y toma foto) [pwa] 
+
+//////// BACK END ////////
+- crecion del servidor
+-manejar rutas
+- manejo de bases de datos
+- implementación de qr
+- enviar datos al front end
+- autenticacion de usuarios 
