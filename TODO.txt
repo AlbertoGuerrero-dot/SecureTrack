@@ -1,9 +1,10 @@
 //////// FRONT END ////////
 Agregar a las vistas las siguientes pantallas (views): 
 - log in [escriorio, pwa]
--nuevo paquete (formulario destinatario y remitente, descripción de producto, fecha envio, fecha estimada entrega) [escriorio responsivo]
+-nuevo paquete (formulario destinatario y remitente, descripción de producto) [escriorio responsivo]
 -estado/rastreo (estado actual del paquete e información) [escriorio responsivo]
 - vista qr (escanea el qr y toma foto) [pwa] 
+- vista del inspeccion (agrega el resultado, comentarios) [pwa]
 
 //////// BACK END ////////
 - crecion del servidor
