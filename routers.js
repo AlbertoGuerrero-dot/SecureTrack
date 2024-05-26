@@ -28,16 +28,16 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.get('/', (req, res) => {
-    res.send('Esto debería ser una pagina de inicio');
+    res.render('landingPage.ejs');
 });
 
 router.get("/login", (req, res) => {
     res.render("login.ejs");
 });
 
-router.get("/home", (req, res) => {
+router.get("/secureTrack", (req, res) => {
     if (req.isAuthenticated()) {
-        res.render("home.ejs");
+        res.render("secureTrack.ejs");
       } else {
         res.redirect("/login");
       }
@@ -64,6 +64,21 @@ router.get("/buscar", (req, res) => {
   res.render('buscar.ejs');
 })
 
+router.get("/inspeccion", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send("nueva inspeccion");
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.get("/register", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("registrar.ejs");
+  } else {
+    res.redirect("/login");
+  }
+})
 
 // RUTAS POST
 
@@ -74,7 +89,7 @@ router.post("/paquete", async (req, res) => {
       console.log(data);
       const response = await axios.post(`${API_URL}/shippingInfo`, data);
       console.log(response.data);
-      res.redirect("/home");
+      res.redirect("/secureTrack");
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error sending data" });
@@ -98,48 +113,47 @@ router.post("/buscar", async(req, res) => {
   router.post(
     "/login",
     passport.authenticate("local", {
-      successRedirect: "/home",
+      successRedirect: "/secureTrack",
       failureRedirect: "/login",
     })
   );
 
   router.post("/register", async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-  
+    data = req.body;
+    console.log(data);
     try {
-      const checkResult = await db.query("SELECT * FROM usuarios WHERE usuario_nombre = $1", [
-        username,
+      const checkResult = await db.query("SELECT * FROM empleados WHERE nombre = $1", [
+        data.username
       ]);
   
       if (checkResult.rows.length > 0) {
         req.redirect("/login");
       } else {
-        bcrypt.hash(password, saltRounds, async (err, hash) => {
+        bcrypt.hash(data.password, saltRounds, async (err, hash) => {
           if (err) {
             console.error("Error hashing password:", err);
           } else {
             const result = await db.query(
-              "INSERT INTO usuarios (usuario_nombre, password) VALUES ($1, $2) RETURNING *",
-              [username, hash]
+              "INSERT INTO empleados (nombre, puesto, telefono, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+              [data.username, data.puesto, data.telefono, data.email, hash]
             );
             const user = result.rows[0];
             req.login(user, (err) => {
               console.log("success");
-              res.redirect("/home");
+              res.redirect("/secureTrack");
             });
           }
         });
       }
     } catch (err) {
       console.log(err);
-    }
+    }  
   });
 
 passport.use(
     new Strategy(async function verify(username, password, cb) {
       try {
-        const result = await db.query("SELECT * FROM usuarios WHERE usuario_nombre = $1 ", [
+        const result = await db.query("SELECT * FROM empleados WHERE nombre = $1 ", [
           username,
         ]);
         if (result.rows.length > 0) {

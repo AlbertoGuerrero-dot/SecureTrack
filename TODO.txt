@@ -8,7 +8,7 @@ Agregar a las vistas las siguientes pantallas (views):
 
 //////// BACK END ////////
 - crecion del servidor
--manejar rutas
+- manejar rutas
 - manejo de bases de datos
 - implementación de qr
 - enviar datos al front end
