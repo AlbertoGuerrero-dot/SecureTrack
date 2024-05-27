@@ -1,0 +1,29 @@
+html{
+    font-size: 62.2%;
+    box-sizing: border-box;
+    scroll-snap-type: y mandatory;
+}
+
+
+ body{
+    font-size: 2rem;
+    /* background-color: #1f7a8c; */
+    background: linear-gradient(300deg, #ffa101, #fc4501, #1caacd);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+  
+  
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+}
+
+background-repeat: no-repeat;
+}

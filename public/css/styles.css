@@ -1,0 +1,262 @@
+:root {
+    --blanco: #ffffff;
+    --oscuro: #212121;
+    --primario: #FFC107;
+    --secundario: #0097a7;
+    --gris: #757575;
+    --grisclaro: #DFE9F3;
+    
+        /* ejemplo de como aplicar las variables de :root
+    background-color: var(--primario); 
+     color: var(--oscuro); */
+    
+    }
+    
+    html{
+        font-size: 62.2%;
+        box-sizing: border-box;
+        scroll-snap-type: y mandatory;
+    }
+    
+    
+     body{
+        font-size: 2rem;
+        /* background-color: #1f7a8c; */
+        background: linear-gradient(300deg, #ffa101, #fc4501, #1caacd);
+        background-size: 180% 180%;
+        animation: gradient-animation 18s ease infinite;
+      
+      
+      @keyframes gradient-animation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+    }
+    }
+    
+    /* main{
+        margin-bottom: 5rem;
+        background-color: var(--primario);
+    } */
+    
+    /* el container va a agarrar todo el rectangulo  */
+    .container{
+        width: 90%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end; /* Centra horizontalmente el contenido flexbox */
+        /* align-items: center;  */
+        flex-direction: column;
+        margin-right: 5rem;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+        margin-left: 5rem;
+        /* margin-bottom: 5rem; */
+        /* background-color: black;  */
+        
+    }
+    /* 
+    .fecha{
+         border-color: #1f7a8c; 
+        color: var(--blanco);
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45rem;
+        height: 10rem;
+         Establecer el ancho y el estilo del borde primero 
+        border-width: 0.3rem;
+        border-style: solid;
+        border-radius: 2rem;
+         Luego, especificar el color del borde 
+        border-color: var(--blanco);
+        margin-bottom: 2.5rem;
+     } */
+    
+     p{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+     }
+    
+     .login{
+        /* border-color: #1f7a8c; */
+        color: var(--blanco);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 45rem;
+        height: 28rem;
+        /* Establecer el ancho y el estilo del borde primero */
+        border-width: 0.3rem;
+        border-style: solid;
+        border-radius: 2rem;
+        /* Luego, especificar el color del borde */
+        border-color: var(--blanco);
+        margin-bottom: 2.5rem;
+        background-color: white;
+        color: #1f7a8c;
+     }
+    
+     .remitente{
+       /* border-color: #1f7a8c; */
+       color: var(--blanco);
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+       width: 45rem;
+       height: 40rem;
+       /* Establecer el ancho y el estilo del borde primero */
+       border-width: 0.3rem;
+       border-style: solid;
+       border-radius: 2rem;
+       /* Luego, especificar el color del borde */
+       border-color: var(--blanco);
+       margin-bottom: 2.5rem;
+       background-color: white;
+       color: #1f7a8c;
+       position: absolute;
+       top: 61%;
+       left: 5%;
+       right: 50%;
+       /* top: 25%; */
+    }
+    .destinatario{
+       /* border-color: #1f7a8c; */
+       color: var(--blanco);
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+       width: 45rem;
+       height: 37rem;
+       /* Establecer el ancho y el estilo del borde primero */
+       border-width: 0.3rem;
+       border-style: solid;
+       border-radius: 2rem;
+       /* Luego, especificar el color del borde */
+       border-color: var(--blanco);
+       margin-bottom: 2.5rem;
+       background-color: white;
+       color: #1f7a8c;
+       position: absolute; 
+       left: 5%;
+       /* right: %; */
+       /* top: 51%;  */
+    }
+    
+     .campo{
+        color: #1f7a8c;
+        padding-bottom: 3rem;
+        margin-top: -2rem;
+        font-weight: bold;
+        /* background-color: black; */
+        width: 25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        /* background-color: black; */
+        
+     }
+     .input-text{
+        background-color: rgb(218, 214, 214);
+        width: 75%;
+        padding: 1rem;
+        border: none;
+        /* margin-bottom: 1rem; */
+        /* border-radius: 1rem; */
+     }
+    
+     fieldset{
+        border: none;
+     }
+    
+     
+     .usuario{
+        /* background-color: black; */
+        margin-bottom: 0.5rem;
+     }
+    /* .formulario{
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    } */
+    
+     .boton:hover{
+        cursor: pointer;
+    }
+    
+    .boton{
+        background-color: #1f7a8c;
+        color: var(--oscuro);
+        padding: 1rem 3rem;
+        /* margin-top: 1rem; */
+        font-size: 1.3rem;
+        /* text-decoration: none; */
+        text-transform: uppercase; /*con esto se cambia toda la linea de texto en mayus*/
+        font-weight: bold;
+        border-radius: .5rem;
+        width: 40%;
+        text-align: center;
+        border: none;    
+        margin-top: 1rem;
+    
+    }
+    
+    .w-sm-100{
+        
+        /* margin-left: 3rem; */
+        width: 85%;
+    }
+    
+    .logo{
+       /* background-color: white; */
+       position: absolute;
+       left: 10%;
+       bottom: 50%;
+       width: 40%;
+       height: 40%;
+       
+    }
+    
+    
+    .imagen{
+       width: 100%;
+       border-radius: 50rem;
+    }
+    
+    .informacion{
+     /* border-color: #1f7a8c; */
+     color: var(--blanco);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     width: 55rem;
+     height: 120%;
+     /* Establecer el ancho y el estilo del borde primero */
+     border-width: 0.3rem;
+     border-style: solid;
+     border-radius: 2rem;
+     /* Luego, especificar el color del borde */
+     border-color: var(--blanco);
+     margin-bottom: 2.5rem;
+     background-color: white;
+     color: #1f7a8c;
+     position: absolute; 
+     left: 55%;
+     /* right: %; */
+     /* top: 51%;  */
+    }
