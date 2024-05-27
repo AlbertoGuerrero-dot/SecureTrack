@@ -8,6 +8,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const env = require('dotenv');
 const axios = require('axios');
+const e = require('express');
 
 env.config()
 const saltRounds = 10; 
@@ -18,6 +19,7 @@ router.use(
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,
+      cookie: { secure: false }
     })
   );
 
@@ -75,9 +77,13 @@ router.get("/registrar", checkRole('Admin'), (req, res) => {
   res.render('registrar.ejs');
 });
 
+router.get("/createInspection", checkRole('Inspector de Aduanas'), (req, res) => {
+  res.render('createInspection.ejs')
+})
+
 // RUTAS POST
 
-router.post("/paquete", async (req, res) => {
+router.post("/paquete", checkRole('Admin'), async (req, res) => {
   if (req.isAuthenticated()) {
     try {
       const data = req.body;
@@ -119,7 +125,7 @@ router.post('/login', passport.authenticate('local', {
   }
 });
 
-router.post("/registrar", async (req, res) => {
+router.post("/registrar", checkRole('Admin'), async (req, res) => {
   const data = req.body;
   console.log(data);
   try {
@@ -150,6 +156,51 @@ router.post("/registrar", async (req, res) => {
     res.redirect("/secureTrack"); // Manejar errores y redirigir adecuadamente
   }
 });
+
+router.post("/inspeccion", checkRole('Inspector de Aduanas'), async (req, res) => {
+  console.log(req.user)
+  console.log(req.body)
+  try {
+    const qr = req.body.qr;
+    const response = await axios.post(`${API_URL}/search`, { qr });
+    req.session.paquete = response.data;
+    res.redirect("/createInspection");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching data" });
+  }
+})
+
+router.post("/createInspection", checkRole('Inspector de Aduanas'), async (req, res) => {
+  
+  if (!req.session.paquete) {
+    return res.status(400).json({ message: "No package data found in session" });
+  }
+
+  data = {
+    paquete: req.session.paquete,
+    empleado: req.user.empleado_id,
+    fecha_inspeccion: new Date(),
+    resultado: req.body.resultado,
+    comentarios: req.body.comentarios
+  }
+
+  if (req.isAuthenticated()) {
+    try {
+      const response = await axios.post(`${API_URL}/inspection`, data);
+      console.log(response.data);
+      req.session.paquete = null;
+      res.redirect("/inspeccion");
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error sending data" });
+    }
+  } else {
+    res.redirect("/login");
+  }
+
+});
+
 
   passport.use(
     new Strategy(async function verify(username, password, cb) {

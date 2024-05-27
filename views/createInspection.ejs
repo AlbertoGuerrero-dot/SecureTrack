@@ -1,0 +1,19 @@
+<%- include('partials/header') %> 
+
+    <form action="/createInspection" method="POST">
+        <div class="form-group">
+          <label for="">Comentario</label>
+          <input type="text" class="form-control" name="comentarios">
+        </div>
+        <div class="form-group">
+            <label for="comentario">comentario</label>
+            <select name="resultado" id="resultado">
+                <option value="Aprobado">Aprobado</option>
+                <option value="Denegado">Denegado</option>
+                <option value="Requiere Revisión">Requiere Revisión</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark">buscar</button>
+      </form>
+
+<%- include('partials/footer') %>

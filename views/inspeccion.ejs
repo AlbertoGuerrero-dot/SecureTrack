@@ -4,4 +4,12 @@
     <button>Boton para escanear qr</button>
     <p><a href="/logout">salir</a></p>
 
+    <form action="/inspeccion" method="POST">
+        <div class="form-group">
+          <label for="qr">qr</label>
+          <input type="text" class="form-control" name="qr">
+        </div>
+        <button type="submit" class="btn btn-dark">buscar</button>
+      </form>
+
 <%- include('partials/footer') %>
