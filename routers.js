@@ -8,6 +8,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const env = require('dotenv');
 const axios = require('axios');
+const e = require('express');
 
 env.config()
 const saltRounds = 10; 
@@ -18,6 +19,7 @@ router.use(
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,
+      cookie: { secure: false }
     })
   );
 
@@ -27,20 +29,27 @@ router.use(express.static("public"));
 router.use(passport.initialize());
 router.use(passport.session());
 
+function checkRole(role) {
+  return function(req, res, next) {
+    if (req.isAuthenticated() && req.user.puesto === role) {
+      return next();
+    } else {
+      res.redirect('/login');
+    }
+  };
+}
+
+// RUTAS GET 
 router.get('/', (req, res) => {
-    res.send('Esto debería ser una pagina de inicio');
+    res.render('landingPage.ejs');
 });
 
 router.get("/login", (req, res) => {
     res.render("login.ejs");
 });
 
-router.get("/home", (req, res) => {
-    if (req.isAuthenticated()) {
-        res.render("home.ejs");
-      } else {
-        res.redirect("/login");
-      }
+router.get("/secureTrack", checkRole('Admin'), (req, res) => {
+  res.render('secureTrack.ejs');
 });
 
 router.get("/logout", (req, res) => {
@@ -52,29 +61,36 @@ router.get("/logout", (req, res) => {
     });
   });
 
-router.get("/paquete", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.render("paquete.ejs");
-  } else {
-    res.redirect("/login");
-  }
+router.get("/paquete", checkRole('Admin'), (req, res) => {
+  res.render('paquete.ejs');
 });
 
 router.get("/buscar", (req, res) => {
   res.render('buscar.ejs');
 })
 
+router.get("/inspeccion", checkRole('Inspector de Aduanas'), (req, res) => {
+  res.render('inspeccion.ejs');
+});
+
+router.get("/registrar", checkRole('Admin'), (req, res) => {
+  res.render('registrar.ejs');
+});
+
+router.get("/createInspection", checkRole('Inspector de Aduanas'), (req, res) => {
+  res.render('createInspection.ejs')
+})
 
 // RUTAS POST
 
-router.post("/paquete", async (req, res) => {
+router.post("/paquete", checkRole('Admin'), async (req, res) => {
   if (req.isAuthenticated()) {
     try {
       const data = req.body;
       console.log(data);
       const response = await axios.post(`${API_URL}/shippingInfo`, data);
       console.log(response.data);
-      res.redirect("/home");
+      res.redirect("/secureTrack");
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error sending data" });
@@ -95,85 +111,142 @@ router.post("/buscar", async(req, res) => {
   }
 });
 
-  router.post(
-    "/login",
-    passport.authenticate("local", {
-      successRedirect: "/home",
-      failureRedirect: "/login",
-    })
-  );
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: '/login',
+  failureFlash: true
+}), (req, res) => {
+  // Redirige según el rol del usuario
+  if (req.user.puesto === 'Admin') {
+    res.redirect('/secureTrack');
+  } else if (req.user.puesto === 'Inspector de Aduanas') {
+    res.redirect('/inspeccion');
+  } else {
+    res.redirect('/');
+  }
+});
 
-  router.post("/register", async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-  
-    try {
-      const checkResult = await db.query("SELECT * FROM usuarios WHERE usuario_nombre = $1", [
-        username,
-      ]);
-  
-      if (checkResult.rows.length > 0) {
-        req.redirect("/login");
-      } else {
-        bcrypt.hash(password, saltRounds, async (err, hash) => {
-          if (err) {
-            console.error("Error hashing password:", err);
-          } else {
-            const result = await db.query(
-              "INSERT INTO usuarios (usuario_nombre, password) VALUES ($1, $2) RETURNING *",
-              [username, hash]
-            );
-            const user = result.rows[0];
-            req.login(user, (err) => {
-              console.log("success");
-              res.redirect("/home");
-            });
-          }
-        });
-      }
-    } catch (err) {
-      console.log(err);
+router.post("/registrar", checkRole('Admin'), async (req, res) => {
+  const data = req.body;
+  console.log(data);
+  try {
+    const checkResult = await db.query("SELECT * FROM empleados WHERE nombre = $1", [
+      data.username
+    ]);
+
+    if (checkResult.rows.length > 0) {
+      res.redirect("/secureTrack");
+    } else {
+      bcrypt.hash(data.password, saltRounds, async (err, hash) => {
+        if (err) {
+          console.error("Error hashing password:", err);
+          res.redirect("/secureTrack"); // Puedes redirigir a una página de error o mostrar un mensaje de error
+        } else {
+          const result = await db.query(
+            "INSERT INTO empleados (nombre, puesto, telefono, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [data.username, data.puesto, data.telefono, data.email, hash]
+          );
+          // No necesitas llamar a req.login aquí
+          console.log("User successfully registered:", result.rows[0]);
+          res.redirect("/secureTrack");
+        }
+      });
     }
-  });
+  } catch (err) {
+    console.log(err);
+    res.redirect("/secureTrack"); // Manejar errores y redirigir adecuadamente
+  }
+});
 
-passport.use(
+router.post("/inspeccion", checkRole('Inspector de Aduanas'), async (req, res) => {
+  console.log(req.user)
+  console.log(req.body)
+  try {
+    const qr = req.body.qr;
+    const response = await axios.post(`${API_URL}/search`, { qr });
+    req.session.paquete = response.data;
+    res.redirect("/createInspection");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching data" });
+  }
+})
+
+router.post("/createInspection", checkRole('Inspector de Aduanas'), async (req, res) => {
+  
+  if (!req.session.paquete) {
+    return res.status(400).json({ message: "No package data found in session" });
+  }
+
+  data = {
+    paquete: req.session.paquete,
+    empleado: req.user.empleado_id,
+    fecha_inspeccion: new Date(),
+    resultado: req.body.resultado,
+    comentarios: req.body.comentarios
+  }
+
+  if (req.isAuthenticated()) {
+    try {
+      const response = await axios.post(`${API_URL}/inspection`, data);
+      console.log(response.data);
+      req.session.paquete = null;
+      res.redirect("/inspeccion");
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error sending data" });
+    }
+  } else {
+    res.redirect("/login");
+  }
+
+});
+
+
+  passport.use(
     new Strategy(async function verify(username, password, cb) {
       try {
-        const result = await db.query("SELECT * FROM usuarios WHERE usuario_nombre = $1 ", [
-          username,
-        ]);
+        const result = await db.query("SELECT * FROM empleados WHERE nombre = $1", [username]);
         if (result.rows.length > 0) {
           const user = result.rows[0];
           const storedHashedPassword = user.password;
           bcrypt.compare(password, storedHashedPassword, (err, valid) => {
             if (err) {
-              //Error with password check
               console.error("Error comparing passwords:", err);
               return cb(err);
             } else {
               if (valid) {
-                //Passed password check
-                return cb(null, user);
+                return cb(null, user); // El objeto user incluirá todas las columnas de la tabla empleados, incluyendo el rol
               } else {
-                //Did not pass password check
                 return cb(null, false);
               }
             }
           });
         } else {
-          return cb("User not found");
+          return cb(null, false, { message: 'User not found' });
         }
       } catch (err) {
         console.log(err);
+        return cb(err);
       }
     })
   );
   
-  passport.serializeUser((user, cb) => {
-    cb(null, user);
-  });
-  passport.deserializeUser((user, cb) => {
-    cb(null, user);
-  });
+// Serializar y deserializar usuario
+passport.serializeUser(function(user, cb) {
+  cb(null, user.empleado_id); // Asegúrate de que user.id está disponible
+});
+
+passport.deserializeUser(async function(id, cb) {
+  try {
+    const result = await db.query("SELECT * FROM empleados WHERE empleado_id = $1", [id]);
+    if (result.rows.length > 0) {
+      cb(null, result.rows[0]);
+    } else {
+      cb(new Error("User not found"));
+    }
+  } catch (err) {
+    cb(err);
+  }
+});
 
 module.exports = router;

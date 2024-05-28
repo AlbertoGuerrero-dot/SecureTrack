@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<%- include('partials/header') %>
     <h1>AGREGAR UN NUEVO PAQUETE</h1>
     <form action="/paquete" method="POST">
       <h2>Remitente</h2>
@@ -44,5 +37,4 @@
             </div>
             <button type="submit" class="btn btn-dark">Agregar</button>
         </form>
-</body>
-</html>
+<%- include('partials/footer') %>

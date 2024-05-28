@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root {
     --blanco: #ffffff;
     --oscuro: #212121;
@@ -260,3 +261,8 @@
      /* right: %; */
      /* top: 51%;  */
     }
+=======
+h1{
+    color: red;
+}
+>>>>>>> db30b2f7060179fc06bd4cf583292eab5ffbb581

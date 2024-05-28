@@ -68,8 +68,27 @@ app.post("/search", async (req, res) => {
       res.status(500).json({ message: "Error inserting data" });
     }
   });
-  
 
+  app.post('/inspection', async (req, res) => {
+    try {
+    const paquete = req.body.paquete[0]; // Acceder al primer (y único) paquete en el array
+    const empleado = req.body.empleado;
+    const fecha_inspeccion = new Date(req.body.fecha_inspeccion); // Convertir a objeto Date
+    const resultado = req.body.resultado;
+    const comentarios = req.body.comentarios;
+
+    const result = await db.query(
+      "INSERT INTO inspecciones (paquete_id, empleado_id, fecha_inspeccion, resultado, comentarios) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [paquete.paquete_id, empleado, fecha_inspeccion, resultado, comentarios]
+    );
+
+    const items = result.rows;
+    res.json(items);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error creating inspection record" });
+    }
+  })
 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
