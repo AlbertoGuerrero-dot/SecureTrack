@@ -266,3 +266,39 @@
     color: red;
 } */
 /* >>>>>>> db30b2f7060179fc06bd4cf583292eab5ffbb581 */
+
+
+/* HOME */
+
+.home{
+   background-color: #1f7a8c;
+ }
+
+
+.titulo{
+   font-size: 3rem;
+   color: black;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 20rem;
+  }
+
+
+ .paquete{
+   font-size: 2rem;
+   color: black;
+   text-decoration: none;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .buscar{
+     font-size: 2rem;
+     color: black;
+     text-decoration: none;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
