@@ -8,6 +8,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const env = require('dotenv');
 const axios = require('axios');
+const QRCode = require('qrcode');
 
 env.config()
 const saltRounds = 10; 
@@ -86,8 +87,27 @@ router.post("/paquete", checkRole('Admin'), async (req, res) => {
   if (req.isAuthenticated()) {
     try {
       const data = req.body;
-      console.log(data);
-      const response = await axios.post(`${API_URL}/shippingInfo`, data);
+
+      // Generar un código QR único
+      const qrCodeString = `QR${Math.floor(100000 + Math.random() * 900000)}`;
+      const qrCodeImage = await QRCode.toDataURL(qrCodeString);
+
+      // Agregar fechas de envío y entrega
+      const fechaEnvio = new Date().toISOString();
+      const fechaEstimadaEntrega = new Date();
+      fechaEstimadaEntrega.setDate(fechaEstimadaEntrega.getDate() + 5);
+
+      const paqueteData = {
+        ...data,
+        codigo_qr: qrCodeString,
+        fecha_envio: fechaEnvio,
+        fecha_estimada_entrega: fechaEstimadaEntrega.toISOString(),
+        qrCodeImage
+      };
+
+      // Enviar la información del paquete al servidor
+      const response = await axios.post(`${API_URL}/shippingInfo`, paqueteData);
+
       console.log(response.data);
       res.redirect("/secureTrack");
     } catch (error) {
@@ -98,6 +118,7 @@ router.post("/paquete", checkRole('Admin'), async (req, res) => {
     res.redirect("/login");
   }
 });
+
 
 router.post("/buscar", async (req, res) => {
   try {

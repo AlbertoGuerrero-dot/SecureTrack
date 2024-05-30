@@ -55,51 +55,65 @@ WHERE
   }
 });
 
-  app.post("/shippingInfo", async (req, res) => {
-    const data = req.body;
-    try {
-      const remitent = {
-        nombre_remitente: data.nombre_remitente,
-        direccion_remitente: data.direccion_remitente,
-        telefono_remitente: data.telefono_remitente,
-        email_remitente: data.email_remitente
-      };
-  
-      const destinatary = {
-        nombre_destinatario: data.nombre_destinatario,
-        direccion_destinatario: data.direccion_destinatario,
-        telefono_destinatario: data.telefono_destinatario,
-        email_destinatario: data.email_destinatario
-      };
-  
-      const insertRemitent = await db.query(
-        "INSERT INTO remitentes (nombre, direccion, telefono, email) VALUES ($1, $2, $3, $4) RETURNING *",
-        [
-          remitent.nombre_remitente,
-          remitent.direccion_remitente,
-          remitent.telefono_remitente,
-          remitent.email_remitente
-        ]
-      );
-  
-      const insertDestinatary = await db.query(
-        "INSERT INTO destinatarios (nombre, direccion, telefono, email) VALUES ($1, $2, $3, $4) RETURNING *",
-        [
-          destinatary.nombre_destinatario,
-          destinatary.direccion_destinatario,
-          destinatary.telefono_destinatario,
-          destinatary.email_destinatario
-        ]
-      );
-  
-      const items = insertDestinatary.rows;
-      const items2 = insertRemitent.rows;
-      res.json({ destinatary: items, remitent: items2 });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Error inserting data" });
-    }
-  });
+app.post("/shippingInfo", async (req, res) => {
+  const data = req.body;
+  try {
+    const remitent = {
+      nombre: data.nombre_remitente,
+      direccion: data.direccion_remitente,
+      telefono: data.telefono_remitente,
+      email: data.email_remitente
+    };
+
+    const destinatary = {
+      nombre: data.nombre_destinatario,
+      direccion: data.direccion_destinatario,
+      telefono: data.telefono_destinatario,
+      email: data.email_destinatario
+    };
+
+    const insertRemitent = await db.query(
+      "INSERT INTO remitentes (nombre, direccion, telefono, email) VALUES ($1, $2, $3, $4) RETURNING remitente_id",
+      [
+        remitent.nombre,
+        remitent.direccion,
+        remitent.telefono,
+        remitent.email
+      ]
+    );
+
+    const insertDestinatary = await db.query(
+      "INSERT INTO destinatarios (nombre, direccion, telefono, email) VALUES ($1, $2, $3, $4) RETURNING destinatario_id",
+      [
+        destinatary.nombre,
+        destinatary.direccion,
+        destinatary.telefono,
+        destinatary.email
+      ]
+    );
+
+    const remitentId = insertRemitent.rows[0].remitente_id;
+    const destinataryId = insertDestinatary.rows[0].destinatario_id;
+
+    const insertPaquete = await db.query(
+      "INSERT INTO paquetes (codigo_qr, descripcion, fecha_envio, fecha_estimada_entrega, remitente_id, destinatario_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [
+        data.codigo_qr,
+        data.descripcion,
+        data.fecha_envio,
+        data.fecha_estimada_entrega,
+        remitentId,
+        destinataryId
+      ]
+    );
+
+    const paquete = insertPaquete.rows[0];
+    res.json({ paquete });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error inserting data" });
+  }
+});
 
   app.post('/inspection', async (req, res) => {
     try {
