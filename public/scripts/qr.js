@@ -1,35 +1,49 @@
-document.querySelector("h1").innerHTML = "Adios";
-
 const scanner = new Html5QrcodeScanner('reader', { 
-    // Scanner will be initialized in DOM inside element with id of 'reader'
     qrbox: {
         width: 250,
         height: 250,
-    },  // Sets dimensions of scanning box (set relative to reader element width)
-    fps: 20, // Frames per second to attempt a scan
+    }, 
+    fps: 20,
 });
 
-
 scanner.render(success, error);
-// Starts scanner
 
 function success(result) {
-
     document.getElementById('result').innerHTML = `
     <h2>Success!</h2>
     <p><a href="${result}">${result}</a></p>
     `;
-    // Prints result as a link inside result element
 
     scanner.clear();
-    // Clears scanning instance
-
     document.getElementById('reader').remove();
-    // Removes reader element from DOM since no longer needed
 
+    // Enviar el QR escaneado al servidor
+    fetch('/inspeccion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ qr: result })
+    })
+    .then(response => {
+        if (response.ok) {
+            // Redirigir a /createInspection si la respuesta es exitosa
+            window.location.href = '/createInspection';
+        } else {
+            return response.json().then(data => {
+                throw new Error(data.message);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('result').innerHTML = `
+        <h2>Error!</h2>
+        <p>${error.message}</p>
+        `;
+    });
 }
 
 function error(err) {
     console.error(err);
-    // Prints any errors to the console
 }
