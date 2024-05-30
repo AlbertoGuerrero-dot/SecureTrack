@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const env = require('dotenv');
 const axios = require('axios');
 const QRCode = require('qrcode');
+const path = require('path');
+const fs = require('fs');
 
 env.config()
 const saltRounds = 10; 
@@ -90,7 +92,12 @@ router.post("/paquete", checkRole('Admin'), async (req, res) => {
 
       // Generar un código QR único
       const qrCodeString = `QR${Math.floor(100000 + Math.random() * 900000)}`;
-      const qrCodeImage = await QRCode.toDataURL(qrCodeString);
+
+      // Definir el path donde se guardará el QR
+      const qrCodePath = path.join(__dirname, 'public', 'qrcodes', `${qrCodeString}.png`);
+
+      // Generar y guardar el código QR
+      await QRCode.toFile(qrCodePath, qrCodeString);
 
       // Agregar fechas de envío y entrega
       const fechaEnvio = new Date().toISOString();
@@ -102,7 +109,7 @@ router.post("/paquete", checkRole('Admin'), async (req, res) => {
         codigo_qr: qrCodeString,
         fecha_envio: fechaEnvio,
         fecha_estimada_entrega: fechaEstimadaEntrega.toISOString(),
-        qrCodeImage
+        qrCodeImagePath: qrCodePath
       };
 
       // Enviar la información del paquete al servidor
@@ -118,6 +125,7 @@ router.post("/paquete", checkRole('Admin'), async (req, res) => {
     res.redirect("/login");
   }
 });
+
 
 
 router.post("/buscar", async (req, res) => {
