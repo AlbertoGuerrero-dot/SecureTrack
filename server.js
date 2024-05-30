@@ -9,19 +9,51 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.post("/search", async (req, res) => {
-    const qr = req.body.qr;
-    console.log(qr);
-    try {
-      const result = await db.query("SELECT * FROM paquetes WHERE codigo_qr = $1", [
-        qr
-      ]);
-      const items = result.rows;
-      res.json(items); 
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Error fetching data" });
-    }
-  });
+  const qr = req.body.qr;
+  console.log(qr);
+  try {
+    const result = await db.query(`
+    SELECT
+  p.paquete_id,
+  p.codigo_qr,
+  p.descripcion,
+  p.fecha_envio,
+  p.fecha_estimada_entrega,
+  r.nombre AS remitente_nombre,
+  r.direccion AS remitente_direccion,
+  r.telefono AS remitente_telefono,
+  r.email AS remitente_email,
+  d.nombre AS destinatario_nombre,
+  d.direccion AS destinatario_direccion,
+  d.telefono AS destinatario_telefono,
+  d.email AS destinatario_email,
+  e.estado,
+  e.comentario AS estado_comentario,
+  e.ubicacion AS estado_ubicacion,
+  i.fecha_inspeccion,
+  i.resultado AS inspeccion_resultado,
+  i.comentarios AS inspeccion_comentario
+FROM
+  paquetes p
+LEFT JOIN
+  remitentes r ON p.remitente_id = r.remitente_id
+LEFT JOIN
+  destinatarios d ON p.destinatario_id = d.destinatario_id
+LEFT JOIN
+  estado e ON p.estado_id = e.estado_id
+LEFT JOIN
+  inspecciones i ON p.paquete_id = i.paquete_id
+WHERE
+  p.codigo_qr = $1;
+    `, [qr]);
+
+    const items = result.rows;
+    res.json(items); 
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching data" });
+  }
+});
 
   app.post("/shippingInfo", async (req, res) => {
     const data = req.body;
