@@ -324,24 +324,16 @@
 
  /* REGISTRAR */
 
- 
-
-.hola{
-   font-size: 3rem;
-   color: black;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   /* margin-top: 40rem; */
-   margin-bottom: 60rem;
-}
 
 
 
 /* PAQUETE  */
 
 .form-group{
-   padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
 }
 
 .pack{
@@ -352,7 +344,7 @@
    border-radius: .5rem;
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   /* justify-content: center; */
    align-items: center;
    margin-top: 5rem;
    padding-bottom: 2rem;
@@ -370,7 +362,6 @@
    height: 3rem;
    border-radius: 13rem; */
    background: rgb(59,156,177);
-   background: linear-gradient(270deg, rgba(59,156,177,1) 0%, rgba(231,79,21,1) 100%);
         color: var(--oscuro);
         padding: 1rem 3rem;
         /* margin-top: 1rem; */
@@ -394,15 +385,23 @@
 }
 
 .fielpack{
-   background: rgb(59,156,177);
-   background: linear-gradient(270deg, rgba(59,156,177,1) 0%, rgba(231,79,21,1) 100%);
-   opacity: .9;
+   background-color: rgb(218, 214, 214, 0.5);
+
    display: flex;
+   flex-direction: column;
    justify-content: center;
    align-items: center;
    border-radius: .5rem;
-
+   
 }
+.row {
+   /* background-color: #0097a7; */
+   display: flex;
+   justify-content: center;
+   gap: 20rem;
+   width: 100%;
+   margin-bottom: 2rem;
+ }
 
  /* REGISTRAR */
 
@@ -427,7 +426,6 @@
  
  .btn1{
    background: rgb(59,156,177);
-   background: linear-gradient(270deg, rgba(59,156,177,1) 0%, rgba(231,79,21,1) 100%);
         color: var(--oscuro);
         padding: 1rem 3rem;
         /* margin-top: 1rem; */
@@ -447,12 +445,12 @@
 }
 
 .fielregistro{
-   background: rgb(59,156,177);
-   background: linear-gradient(270deg, rgba(59,156,177,1) 0%, rgba(231,79,21,1) 100%);
+   background-color: var(--gris);
+   opacity: .9;
         color: var(--oscuro);
         opacity: .9;
    width: 30rem;
-   height: 20rem;
+   height: 23rem;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -465,7 +463,11 @@
 }
 
 .form-group1{
-   padding-bottom: .7rem;
+   /* padding-bottom:  */
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
 }
 
 
@@ -486,8 +488,8 @@
 }
 
 .tituloland{
-   background-color: grey;
-   opacity: .8;
+   background-color: rgb(218, 214, 214, 0.5);
+
    margin-top: -9rem;
    font-size: 5rem;
    border-radius: .5rem;
@@ -495,8 +497,8 @@
 }
 
 .landingb{
-   background-color: grey;
-   opacity: .8;
+   background-color: rgb(218, 214, 214, 0.5);
+
    border-radius: .5rem;
 }
 
@@ -527,4 +529,72 @@
 
 input{
    border-radius: .5rem;
+}
+
+.btn2{
+   background: rgb(59,156,177);
+        color: var(--oscuro);
+        padding: 1rem 3rem;
+        /* margin-top: 1rem; */
+        font-size: 1.3rem;
+        /* text-decoration: none; */
+        text-transform: uppercase; /*con esto se cambia toda la linea de texto en mayus*/
+        font-weight: bold;
+        border-radius: .5rem;
+        width: 60%;
+        text-align: center;
+        border: none;    
+        margin-top: 1rem;
+ }
+
+ .btn2:hover{
+   cursor: pointer;
+}
+
+
+/* BUSCAR */
+.buscarqr{
+   /* background-color: var(--gris); */
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 1rem;
+}
+
+.conteinerbuscar{
+   /* background-color: var(--gris); */
+   background-image: url('/img/logistica3.jpg');
+   background-size: cover;
+}
+
+.remitentebuscar{
+   background-color: rgb(218, 214, 214, 0.5);
+   /* opacity: .8; */
+   width: 50rem;
+   height: 35rem;
+   /* backdrop-filter: blur(10px); */
+}
+
+.destinatariobuscar{
+   background-color: rgb(218, 214, 214, 0.5);
+   width: 50rem;
+   height: 35rem;
+}
+
+.estadobuscar{
+   background-color: rgb(218, 214, 214, 0.5);
+   width: 50rem;
+   height: 74rem;
+   margin-top: 2.1rem;
+}
+
+.hero{
+   /* background-color: black; */
+   display: flex;
+   justify-content: center;
+   gap: 20rem;
+   width: 100%;
+   margin-bottom: 2rem;
+   padding: 1rem;
 }

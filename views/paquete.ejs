@@ -2,49 +2,70 @@
 
 <!-- JALA -->
     <div class="pack">
+
     <h1 class="titulopack">AGREGAR NUEVO PAQUETE</h1>
+   
 
     <form action="/paquete" method="POST">
+      <div class="row">
+        
       <fieldset class="fielpack">
-        <legend><h2 class="titulospack">Remitente</h2></legend>
+
+        
+
+        
+
         <div class="form-group">
+          <h2 class="titulospack">Remitente</h2>
           <label for="nombre">Nombre</label>
           <input type="text" class="form-control" name="nombre_remitente">
-        </div>
-        <div class="form-group">
-          <label for="direccion">Dirección</label>
-          <input type="text" class="form-control" name="direccion_remitente">
-        </div>
-        <div class="form-group">
+        
+            <label for="direccion">Dirección</label>
+            <input type="text" class="form-control" name="direccion_remitente">
+        
             <label for="telefono">Telefono</label>
             <input type="text" class="form-control" name="telefono_remitente">
-          </div>
-        <div class="form-group">
+      
             <label for="email">email</label>
             <input type="text" class="form-control" name="email_remitente">
           </div>
         </fieldset>
 
       <fieldset class="fielpack">
-        <legend><h2 class="titulospack">Destinatario</h2></legend>
+
+        <h2 class="titulospack">Destinatario</h2>
           <div class="form-group">
+
             <label for="nombre">Nombre</label>
             <input type="text" class="form-control" name="nombre_destinatario">
-          </div>
-          <div class="form-group">
+          
             <label for="direccion">Dirección</label>
             <input type="text" class="form-control" name="direccion_destinatario">
-          </div>
-          <div class="form-group">
+         
               <label for="telefono">Telefono</label>
               <input type="text" class="form-control" name="telefono_destinatario">
-            </div>
-          <div class="form-group">
+           
               <label for="email">email</label>
               <input type="text" class="form-control" name="email_destinatario">
             </div>
           </fieldset>
 
+        </div>
+        
+        <fieldset class="fielpack">
+
+          <!-- <h2 class="titulospack">Descripcion</h2> -->
+            <div class="form-group">
+  
+              <label for="nombre">Descripcion</label>
+              <input type="text" class="form-control" name="nombre_destinatario">
+            
+              <label for="direccion">Qr</label>
+              <input type="text" class="form-control" name="direccion_destinatario">
+           
+              </div>
+            </fieldset>
+        </div>
             <button type="submit" class="btn btn-dark">Agregar</button>
         </form>
       </div>
