@@ -1,7 +1,12 @@
 <%- include('partials/header') %>
-    <h1>AGREGAR UN NUEVO PAQUETE</h1>
+
+<!-- JALA -->
+    <div class="pack">
+    <h1 class="titulopack">AGREGAR NUEVO PAQUETE</h1>
+
     <form action="/paquete" method="POST">
-      <h2>Remitente</h2>
+      <fieldset class="fielpack">
+        <legend><h2 class="titulospack">Remitente</h2></legend>
         <div class="form-group">
           <label for="nombre">Nombre</label>
           <input type="text" class="form-control" name="nombre_remitente">
@@ -18,7 +23,10 @@
             <label for="email">email</label>
             <input type="text" class="form-control" name="email_remitente">
           </div>
-      <h2>Destinatario</h2>
+        </fieldset>
+
+      <fieldset class="fielpack">
+        <legend><h2 class="titulospack">Destinatario</h2></legend>
           <div class="form-group">
             <label for="nombre">Nombre</label>
             <input type="text" class="form-control" name="nombre_destinatario">
@@ -35,6 +43,11 @@
               <label for="email">email</label>
               <input type="text" class="form-control" name="email_destinatario">
             </div>
+          </fieldset>
+
             <button type="submit" class="btn btn-dark">Agregar</button>
         </form>
+      </div>
+
+      
 <%- include('partials/footer') %>

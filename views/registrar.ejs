@@ -1,17 +1,22 @@
 <%- include('partials/header') %>
-
-<h1>Registrar</h1>
+  
+<div class="registrar">
+<h1 class="tituloregistrar">Registrar</h1>
 
 <form action="/registrar" method="POST">
-  <div class="form-group">
+  <fieldset class="fielregistro">
+
+    <div class="inputs">
+
+  <div class="form-group1">
     <label for="usuario">Usuario</label>
     <input type="text" class="form-control" name="username" id="usuario">
   </div>
-  <div class="form-group">
+  <div class="form-group1">
     <label for="password">Password</label>
     <input type="password" class="form-control" name="password" id="password">
   </div>
-  <div class="form-group">
+  <div class="form-group1">
       <label for="puesto">Puesto</label>
       <select name="puesto" id="puesto">
           <option value="Inspector de Aduanas">Inspector de Aduanas</option>
@@ -20,17 +25,19 @@
           <option value="Supervisor de Logística">Supervisor de Logística</option>
       </select>
   </div>
-  <div class="form-group">
+  <div class="form-group1">
       <label for="telefono">Teléfono</label>
       <input type="tel" class="form-control" name="telefono" id="telefono">
   </div>
-  <div class="form-group">
+  <div class="form-group1">
       <label for="email">Email</label>
       <input type="text" class="form-control" name="email" id="email">
   </div>
-  <button type="submit" class="btn btn-dark">Login</button>
+</div>
+  </fieldset>
+  <button type="submit" class="btn1 btn-dark">Login</button>
 </form>
-
+</div>
 
 
 <%- include('partials/footer') %>

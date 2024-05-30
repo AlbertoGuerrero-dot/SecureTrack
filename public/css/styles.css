@@ -39,6 +39,7 @@
           background-position: 0% 50%;
         }
     }
+
     }
     
     /* main{
@@ -268,25 +269,19 @@
 /* >>>>>>> db30b2f7060179fc06bd4cf583292eab5ffbb581 */
 
 
-/* HOME */
-
-.home{
-   background-color: #1f7a8c;
- }
-
-
+/* securetrack*/
 .titulo{
-   font-size: 3rem;
+   font-size: 4rem;
    color: black;
    display: flex;
    justify-content: center;
    align-items: center;
-   margin-top: 20rem;
+   /* margin-top: 18rem; */
   }
 
 
  .paquete{
-   font-size: 2rem;
+   font-size: 3rem;
    color: black;
    text-decoration: none;
    display: flex;
@@ -294,11 +289,242 @@
    align-items: center;
  }
 
- .buscar{
-     font-size: 2rem;
-     color: black;
-     text-decoration: none;
-     display: flex;
-     justify-content: center;
-     align-items: center;
+ .paquete:hover{
+   color: #2f7787;
  }
+
+ .page{
+
+   width: 60rem;
+   height: 40rem;
+   background-image: url('/img/logistica1.jpg');
+   background-size: cover;
+   /* background-position: center; */
+   padding-top: 3rem;
+   margin-top: 13rem;
+   margin-left: 36rem;
+   font-weight: bold;
+ }
+ 
+ .centro{
+   background-color: #c8cbcf;
+   opacity: .7;
+   width: 40rem;
+   margin-left: 12rem;
+   border-radius: 10%;
+ }
+
+ /* .page1{
+   background-color: black;
+   position: absolute;
+ } */
+
+
+
+
+ /* REGISTRAR */
+
+ 
+
+.hola{
+   font-size: 3rem;
+   color: black;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* margin-top: 40rem; */
+   margin-bottom: 60rem;
+}
+
+
+
+/* PAQUETE  */
+
+.form-group{
+   padding-left: 2rem;
+}
+
+.pack{
+   background-image: url('/img/paquete1.jpg');
+   background-size: cover;
+   background-color: white;
+   background-position: right;
+   border-radius: .5rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 5rem;
+   padding-bottom: 2rem;
+}
+
+.titulopack{
+   font-size: 4rem;
+   color: var(--blanco);
+}
+
+/* boton */
+.btn{
+   /* background-color: var(--secundario);
+   width: 13rem;
+   height: 3rem;
+   border-radius: 13rem; */
+   background: rgb(59,156,177);
+   background: linear-gradient(270deg, rgba(59,156,177,1) 0%, rgba(231,79,21,1) 100%);
+        color: var(--oscuro);
+        padding: 1rem 3rem;
+        /* margin-top: 1rem; */
+        font-size: 1.3rem;
+        /* text-decoration: none; */
+        text-transform: uppercase; /*con esto se cambia toda la linea de texto en mayus*/
+        font-weight: bold;
+        border-radius: .5rem;
+        width: 20%;
+        text-align: center;
+        border: none;    
+        margin-top: 1rem;
+}
+
+.titulospack{
+   color: var(--blanco);
+}
+
+.btn:hover{
+   cursor: pointer;
+}
+
+.fielpack{
+   background: rgb(59,156,177);
+   background: linear-gradient(270deg, rgba(59,156,177,1) 0%, rgba(231,79,21,1) 100%);
+   opacity: .9;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: .5rem;
+
+}
+
+ /* REGISTRAR */
+
+ .tituloregistrar{
+   color: white;
+   font-size: 5rem;
+ }
+
+ .registrar{
+   background-image: url('/img/paquete2.jpg');  
+   background-size: cover;
+   background-color: white;
+   background-position: right;
+   border-radius: .5rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 8rem;
+   padding-bottom: 5rem;
+ }
+ 
+ .btn1{
+   background: rgb(59,156,177);
+   background: linear-gradient(270deg, rgba(59,156,177,1) 0%, rgba(231,79,21,1) 100%);
+        color: var(--oscuro);
+        padding: 1rem 3rem;
+        /* margin-top: 1rem; */
+        font-size: 1.3rem;
+        /* text-decoration: none; */
+        text-transform: uppercase; /*con esto se cambia toda la linea de texto en mayus*/
+        font-weight: bold;
+        border-radius: .5rem;
+        width: 40%;
+        text-align: center;
+        border: none;    
+        margin-top: 1rem;
+ }
+
+ .btn1:hover{
+   cursor: pointer;
+}
+
+.fielregistro{
+   background: rgb(59,156,177);
+   background: linear-gradient(270deg, rgba(59,156,177,1) 0%, rgba(231,79,21,1) 100%);
+        color: var(--oscuro);
+        opacity: .9;
+   width: 30rem;
+   height: 20rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   border-radius: .5rem;
+}
+
+.inputs{
+   margin-bottom: .6rem;
+}
+
+.form-group1{
+   padding-bottom: .7rem;
+}
+
+
+/* LANDING PAGE */
+
+.landingp{
+   background-image: url('/img/logistica2.jpg');  
+   background-size: cover;
+   background-color: white;
+   background-position: right;
+   height: 55rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   border-radius: .5rem;
+   margin-top: 4rem;
+}
+
+.tituloland{
+   background-color: grey;
+   opacity: .8;
+   margin-top: -9rem;
+   font-size: 5rem;
+   border-radius: .5rem;
+   font-weight: bold;
+}
+
+.landingb{
+   background-color: grey;
+   opacity: .8;
+   border-radius: .5rem;
+}
+
+.buscarland{
+   color: var(--oscuro);
+   text-decoration: none;
+   font-size: 3rem;
+   font-weight: bold;
+
+}
+
+/* CREATE INSPECTION */
+
+.createIns{
+   background-color: grey;
+   opacity: .9;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   border-radius: .5rem;
+   margin-top: 20rem;
+   width: 50rem;
+   margin-left: 40rem;
+   height: 25rem;
+   font-size: 3rem;
+}
+
+input{
+   border-radius: .5rem;
+}
