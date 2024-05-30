@@ -65,7 +65,7 @@ router.get("/paquete", checkRole('Admin'), (req, res) => {
 });
 
 router.get("/buscar", (req, res) => {
-  res.render('buscar.ejs');
+  res.render('buscar.ejs', { data: null });
 })
 
 router.get("/inspeccion", checkRole('Inspector de Aduanas'), (req, res) => {
@@ -99,11 +99,12 @@ router.post("/paquete", checkRole('Admin'), async (req, res) => {
   }
 });
 
-router.post("/buscar", async(req, res) => {
+router.post("/buscar", async (req, res) => {
   try {
     const qr = req.body.qr;
     const response = await axios.post(`${API_URL}/search`, { qr });
-    res.send(response.data);
+    const data = response.data.length > 0 ? response.data[0] : null; // Asegurarse de obtener el primer elemento
+    res.render('buscar.ejs', { data });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error fetching data" });

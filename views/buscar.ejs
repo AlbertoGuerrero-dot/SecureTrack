@@ -1,41 +1,47 @@
 <%- include('partials/header') %> 
- <!-- ya jala -->
-    <div class="buscarqr">
-    <form action="/buscar" method="POST">
-        <div class="form-group">
-          <label for="qr">Qr</label>
-          <input type="text" class="form-control" name="qr">
-        </div>
-        <button type="submit" class="btn2 btn-dark">buscar</button>
-      </form>
+
+<div class="buscarqr">
+  <form action="/buscar" method="POST">
+    <div class="form-group">
+      <label for="qr">Qr</label>
+      <input type="text" class="form-control" name="qr">
     </div>
+    <button type="submit" class="btn2 btn-dark">Buscar</button>
+  </form>
+</div>
 
-    <div class="conteinerbuscar"> <!--esto abarca toda la imagen-->
-
-      <div class="hero"> <!--abarca toda el div de containerbuscar para poder hacer la vista paralela-->
-
-      <div class="destrem"> <!--abarca remitente y destinatario para poder poner un div sobre el otro-->
+<% if (data) { %>
+<div class="conteinerbuscar">
+  <div class="hero">
+    <div class="destrem">
       <div class="remitentebuscar">
         <h1>Remitente</h1>
-        <p>hola</p>
-        <p>hola</p>
-        <p>hola</p>
+        <p>Nombre: <%= data.remitente_nombre %></p>
+        <p>Dirección: <%= data.remitente_direccion %></p>
+        <p>Teléfono: <%= data.remitente_telefono %></p>
+        <p>Email: <%= data.remitente_email %></p>
       </div>
 
       <div class="destinatariobuscar">
         <h1>Destinatario</h1>
-        <p>betito</p>
-        <p>betito</p>
-        <p>betito</p>
+        <p>Nombre: <%= data.destinatario_nombre %></p>
+        <p>Dirección: <%= data.destinatario_direccion %></p>
+        <p>Teléfono: <%= data.destinatario_telefono %></p>
+        <p>Email: <%= data.destinatario_email %></p>
       </div>
     </div>
 
-      <div class="estadobuscar">
-        <h1>Estado</h1>
-        <p>gay si no te gusta</p>
-        <p>gay si no te gusta</p>
-        <p>gay si no te gusta</p>
-      </div>
+    <div class="estadobuscar">
+      <h1>Estado</h1>
+      <p>Estado: <%= data.estado %></p>
+      <p>Comentario: <%= data.estado_comentario %></p>
+      <p>Ubicación: <%= data.estado_ubicacion %></p>
+      <p>Fecha de Inspección: <%= new Date(data.fecha_inspeccion).toLocaleDateString() %></p>
+      <p>Resultado: <%= data.inspeccion_resultado %></p>
+      <p>Comentario de Inspección: <%= data.inspeccion_comentario %></p>
     </div>
-    </div>
+  </div>
+</div>
+<% } %>
+
 <%- include('partials/footer') %>
