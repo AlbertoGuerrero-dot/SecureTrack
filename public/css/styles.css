@@ -4,8 +4,10 @@
     --oscuro: #212121;
     --primario: #1f7a8c;
     --secundario: #0097a7;
+    --primariooscuro: #145061;
     --gris: #757575;
     --grisclaro: #DFE9F3;
+    --blancoopaco: #c4d1d7;
     
         /* ejemplo de como aplicar las variables de :root
     background-color: var(--primario); 
@@ -22,23 +24,8 @@
     
      body{
         font-size: 2rem;
-        /* background-color: #1f7a8c; */
-        background: linear-gradient(300deg, #ffa101, #fc4501, #1caacd);
-        background-size: 180% 180%;
-        animation: gradient-animation 18s ease infinite;
-      
-      
-      @keyframes gradient-animation {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-    }
+        background-color: #1f7a8c;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
     }
     
@@ -271,8 +258,8 @@
 
 /* securetrack*/
 .titulo{
-   font-size: 4rem;
-   color:#0097a7;
+   font-size: 4.5rem;
+   color:var(--primariooscuro);
    display: flex;
    justify-content: center;
    align-items: center;
@@ -282,7 +269,7 @@
 
  .paquete{
    font-size: 3rem;
-   color: #1f7a94;
+   color: var(--primariooscuro);
    text-decoration: none;
    display: flex;
    justify-content: center;
@@ -302,7 +289,7 @@
 
    width: 70rem;
    height: 50rem;
-   background-image: url('/img/logistica1.jpg');
+   /* background-image: url('/img/logistica1.jpg'); */
    background-size: cover;
    /* background-position: center; */
    display: flex;
@@ -315,11 +302,11 @@
  }
  
  .centro{
-   background-color: white;
+   background-color: var(--blancoopaco);
    /* opacity: .7; */
    width: 60rem;
    margin-left: 3rem;
-   border-radius: 10%;
+   border-radius: 7rem;
    
  }
 
@@ -345,9 +332,9 @@
 }
 
 .pack{
-   background-image: url('/img/paquete1.jpg');
+   /* background-image: url('/img/paquete1.jpg'); */
    background-size: cover;
-   background-color: white;
+   /* background-color: white; */
    background-position: right;
    border-radius: .5rem;
    display: flex;
@@ -361,7 +348,7 @@
 
 .titulopack{
    font-size: 4rem;
-   color: #1f7a94;
+   color: var(--blanco);
 }
 
 /* boton */
@@ -371,7 +358,7 @@
    height: 3rem;
    border-radius: 13rem; */
    background: rgb(59,156,177);
-        color: var(--oscuro);
+        color: var(--blanco);
         padding: 1rem 3rem;
         /* margin-top: 1rem; */
         font-size: 1.3rem;
@@ -379,9 +366,11 @@
         text-transform: uppercase; /*con esto se cambia toda la linea de texto en mayus*/
         font-weight: bold;
         border-radius: .5rem;
+        border-width: 0.2rem;
+        border-style: solid;
+        border-color: var(--primariooscuro);
         width: 20%;
-        text-align: center;
-        border: none;    
+        text-align: center; 
         margin-top: 1rem;
 }
 
@@ -399,11 +388,15 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   border-radius: .5rem;
+   border-radius: 3rem;
    width: 50rem;
    height: 30rem;
-   color: #1f7a94;
+   color: var(--primariooscuro);
    font-weight: bold;
+   border-width: 0.5rem;
+   border-style: solid;
+   border-color: var(--primariooscuro);
+   padding-bottom: 3rem;
 }
 .fielpack2{
    background-color: white;
@@ -412,18 +405,21 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   border-radius: .5rem;
+   border-radius: 3rem;
    width: 55rem;
-   height: 30rem;
+   height: 15rem;
    margin-left: 30rem;
-   color: #1f7a94;
+   color: var(--primariooscuro);
    font-weight: bold;
+   border-width: 0.5rem;
+   border-style: solid;
+   border-color: var(--primariooscuro);
 }
 .row {
    /* background-color: #0097a7; */
    display: flex;
    justify-content: center;
-   gap: 15rem;
+   gap: 10rem;
    width: 100%;
    margin-bottom: 2rem;
  }
@@ -431,15 +427,16 @@
  /* REGISTRAR */
 
  .tituloregistrar{
-   color: #1f7a8c;
+   color: var(--blanco);
    font-size: 7rem;
    text-transform: uppercase;
+   
  }
 
  .registrar{
-   background-image: url('/img/paquete2.jpg');  
-   background-size: cover;
-   background-color: white;
+   /* background-image: url('/img/paquete2.jpg');   */
+   /* background-size: cover;
+   background-color: white; */
    background-position: right;
    border-radius: .5rem;
    display: flex;
@@ -452,7 +449,7 @@
  }
  
  .btn1{
-   background: rgb(59,156,177);
+   background: rgb(249, 251, 251);
         color: var(--oscuro);
         padding: 1rem 3rem;
         /* margin-top: 1rem; */
@@ -463,8 +460,10 @@
         border-radius: .5rem;
         width: 40%;
         text-align: center;
-        border: none;    
         margin-top: 1rem;
+        border-width: 0.2rem;
+        border-style: solid;
+        border-color: var(--primariooscuro);
  }
 
  .btn1:hover{
@@ -472,7 +471,7 @@
 }
 
 .fielregistro{
-   background-color: var(--blanco);
+   background-color: var(--blancoopaco);
    /* opacity: .9; */
         color: #1f7a8c;
         /* opacity: .9; */
@@ -482,8 +481,11 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   border-radius: .5rem;
+   border-radius: 2rem;
    font-weight: bold;
+   border-width: 0.5rem;
+   border-style: solid;
+   border-color: var(--primariooscuro);
 }
 
 .inputs{
@@ -502,7 +504,8 @@
 /* LANDING PAGE */
 
 .landingp{
-   background-image: url('/img/logistica2.jpg');  
+   /* background-image: url('/img/logistica2.jpg');   */
+   /* background-color: #145061; */
    background-size: cover;
    background-position: right;
    height: 55rem;
@@ -512,41 +515,46 @@
    align-items: center;
    border-radius: .5rem;
    margin-top: 4rem;
+   
 }
 
 .tituloland{
-   color: var(--primario);
+   color: var(--blanco);
 
    margin-top: -7rem;
-   font-size: 5rem;
+   font-size: 6rem;
    border-radius: .5rem;
    font-weight: bold;
-   margin-right: 65%; 
+   margin-right: 60%; 
 }
 
 .parrafolandin{
-   background-color: white;
+   background-color: #c4d1d7;
    color: var(--primario);
-   border-radius: .5rem;
-   width: 60rem;
-   margin-right: 50%;
+   border-radius: 3rem;
+   width: 45rem;
+   margin-right: 60%;
    margin-bottom: 1rem;
    font-weight: bold;
-
+   font-size: 2.2rem;
+   padding-right: 1rem;
+   padding-left: 2rem;
 }
 
 .landinbuscar{
-   background-color: var(--primario);
+   background-color: #c4d1d7;
    border-radius: .5rem;
-   margin-right: 80%;
+   margin-right: 75%;
    border-radius: 2rem;
-}
+   padding-right: 1rem;
+   padding-left: 2rem;}
 
 
 .landinlogin{
-   background-color: var(--primario);
+   background-color: var(--blanco);
    width: 15rem;
    border-radius: 2rem;
+   background-color: #c4d1d7;
 }
 
 .buscarland{
@@ -610,8 +618,10 @@ input{
         border-radius: .5rem;
         width: 60%;
         text-align: center;
-        border: none;    
         margin-top: 1rem;
+        border-width: 0.2rem;
+        border-style: solid;
+        border-color: var(--primariooscuro);
  }
 
  .btn2:hover{
