@@ -18,7 +18,7 @@ bcrypt.hash(data.password, saltRounds, async (err, hash) => {
         "INSERT INTO empleados (nombre, puesto, telefono, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *",
         [data.username, data.puesto, data.telefono, data.email, hash]
       );
-      // No necesitas llamar a req.login aquí
+
       console.log("User successfully registered:", result.rows[0]);
       console.log(hash)
     }
